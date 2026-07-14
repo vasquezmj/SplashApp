@@ -33,17 +33,47 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => HomePageWidget(),
+      errorBuilder: (context, state) => LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => HomePageWidget(),
+          builder: (context, _) => LoginWidget(),
         ),
         FFRoute(
-          name: HomePageWidget.routeName,
-          path: HomePageWidget.routePath,
-          builder: (context, params) => HomePageWidget(),
+          name: LoginWidget.routeName,
+          path: LoginWidget.routePath,
+          builder: (context, params) => LoginWidget(),
+        ),
+        FFRoute(
+          name: RegistroWidget.routeName,
+          path: RegistroWidget.routePath,
+          builder: (context, params) => RegistroWidget(),
+        ),
+        FFRoute(
+          name: InicioClienteWidget.routeName,
+          path: InicioClienteWidget.routePath,
+          builder: (context, params) => InicioClienteWidget(),
+        ),
+        FFRoute(
+          name: ReservarCitaWidget.routeName,
+          path: ReservarCitaWidget.routePath,
+          builder: (context, params) => ReservarCitaWidget(),
+        ),
+        FFRoute(
+          name: CitasWidget.routeName,
+          path: CitasWidget.routePath,
+          builder: (context, params) => CitasWidget(),
+        ),
+        FFRoute(
+          name: PerfilClienteWidget.routeName,
+          path: PerfilClienteWidget.routePath,
+          builder: (context, params) => PerfilClienteWidget(),
+        ),
+        FFRoute(
+          name: PanelADMWidget.routeName,
+          path: PanelADMWidget.routePath,
+          builder: (context, params) => PanelADMWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
