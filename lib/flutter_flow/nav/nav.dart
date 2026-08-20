@@ -61,19 +61,34 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ReservarCitaWidget(),
         ),
         FFRoute(
-          name: CitasWidget.routeName,
-          path: CitasWidget.routePath,
-          builder: (context, params) => CitasWidget(),
+          name: FlotaWidget.routeName,
+          path: FlotaWidget.routePath,
+          builder: (context, params) => FlotaWidget(),
         ),
         FFRoute(
-          name: PerfilClienteWidget.routeName,
-          path: PerfilClienteWidget.routePath,
-          builder: (context, params) => PerfilClienteWidget(),
+          name: PersonalWidget.routeName,
+          path: PersonalWidget.routePath,
+          builder: (context, params) => PersonalWidget(),
         ),
         FFRoute(
-          name: PanelADMWidget.routeName,
-          path: PanelADMWidget.routePath,
-          builder: (context, params) => PanelADMWidget(),
+          name: CitasAdmWidget.routeName,
+          path: CitasAdmWidget.routePath,
+          builder: (context, params) => CitasAdmWidget(),
+        ),
+        FFRoute(
+          name: AdmPanelWidget.routeName,
+          path: AdmPanelWidget.routePath,
+          builder: (context, params) => AdmPanelWidget(),
+        ),
+        FFRoute(
+          name: CitasUserWidget.routeName,
+          path: CitasUserWidget.routePath,
+          builder: (context, params) => CitasUserWidget(),
+        ),
+        FFRoute(
+          name: UserProfileWidget.routeName,
+          path: UserProfileWidget.routePath,
+          builder: (context, params) => UserProfileWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

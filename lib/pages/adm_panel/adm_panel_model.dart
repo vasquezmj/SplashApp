@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'perfil_cliente_widget.dart' show PerfilClienteWidget;
+import 'adm_panel_widget.dart' show AdmPanelWidget;
 import 'package:flutter/material.dart';
 
-class PerfilClienteModel extends FlutterFlowModel<PerfilClienteWidget> {
+class AdmPanelModel extends FlutterFlowModel<AdmPanelWidget> {
   @override
   void initState(BuildContext context) {}
 

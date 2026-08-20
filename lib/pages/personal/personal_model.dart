@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'panel_a_d_m_widget.dart' show PanelADMWidget;
+import 'personal_widget.dart' show PersonalWidget;
 import 'package:flutter/material.dart';
 
-class PanelADMModel extends FlutterFlowModel<PanelADMWidget> {
+class PersonalModel extends FlutterFlowModel<PersonalWidget> {
   @override
   void initState(BuildContext context) {}
 

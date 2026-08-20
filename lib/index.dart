@@ -4,7 +4,9 @@ export '/pages/registro/registro_widget.dart' show RegistroWidget;
 export '/pages/inicio_cliente/inicio_cliente_widget.dart'
     show InicioClienteWidget;
 export '/pages/reservar_cita/reservar_cita_widget.dart' show ReservarCitaWidget;
-export '/pages/citas/citas_widget.dart' show CitasWidget;
-export '/pages/perfil_cliente/perfil_cliente_widget.dart'
-    show PerfilClienteWidget;
-export '/panel_a_d_m/panel_a_d_m_widget.dart' show PanelADMWidget;
+export '/pages/flota/flota_widget.dart' show FlotaWidget;
+export '/pages/personal/personal_widget.dart' show PersonalWidget;
+export '/pages/citas_adm/citas_adm_widget.dart' show CitasAdmWidget;
+export '/pages/adm_panel/adm_panel_widget.dart' show AdmPanelWidget;
+export '/pages/citas_user/citas_user_widget.dart' show CitasUserWidget;
+export '/pages/user_profile/user_profile_widget.dart' show UserProfileWidget;

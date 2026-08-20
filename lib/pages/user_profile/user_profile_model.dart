@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'citas_widget.dart' show CitasWidget;
+import 'user_profile_widget.dart' show UserProfileWidget;
 import 'package:flutter/material.dart';
 
-class CitasModel extends FlutterFlowModel<CitasWidget> {
+class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
   @override
   void initState(BuildContext context) {}
 
