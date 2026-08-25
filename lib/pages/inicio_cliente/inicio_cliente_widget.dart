@@ -1,8 +1,11 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'inicio_cliente_model.dart';
 export 'inicio_cliente_model.dart';
@@ -55,17 +58,40 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    width: 44.0,
-                    height: 44.0,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset(
-                          'assets/images/pyn3xp.png',
-                        ).image,
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed(UserProfileWidget.routeName);
+                    },
+                    child: Container(
+                      width: 44.0,
+                      height: 44.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: Image.asset(
+                            'assets/images/pyn3xp.png',
+                          ).image,
+                        ),
+                        shape: BoxShape.circle,
                       ),
-                      shape: BoxShape.circle,
+                      child: AuthUserStreamWidget(
+                        builder: (context) => ClipRRect(
+                          borderRadius: BorderRadius.circular(24.0),
+                          child: Image.network(
+                            valueOrDefault<String>(
+                              currentUserPhoto,
+                              'https://thumbs.dreamstime.com/b/perfil-de-usuario-avatar-icono-mdash-marcador-posici%C3%B3n-cuenta-predeterminado-silueta-circular-gris-plana-gen%C3%A9rico-para-sitios-399165083.jpg',
+                            ),
+                            width: 200.0,
+                            height: 200.0,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Column(
@@ -90,24 +116,29 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                   .fontStyle,
                             ),
                       ),
-                      Text(
-                        'Alex',
-                        style:
-                            FlutterFlowTheme.of(context).titleMedium.override(
-                                  font: GoogleFonts.interTight(
+                      AuthUserStreamWidget(
+                        builder: (context) => Text(
+                          valueOrDefault<String>(
+                            currentUserDisplayName,
+                            'Usuario',
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    font: GoogleFonts.interTight(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFF001E40),
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .titleMedium
                                         .fontStyle,
                                   ),
-                                  color: Color(0xFF001E40),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .fontStyle,
-                                ),
+                        ),
                       ),
                     ],
                   ),
@@ -119,12 +150,16 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                   borderRadius: 20.0,
                   buttonSize: 40.0,
                   icon: Icon(
-                    Icons.notifications_none,
+                    Icons.login_rounded,
                     color: Color(0xFF001E40),
                     size: 24.0,
                   ),
-                  onPressed: () {
-                    print('IconButton pressed ...');
+                  onPressed: () async {
+                    GoRouter.of(context).prepareAuthEvent();
+                    await authManager.signOut();
+                    GoRouter.of(context).clearRedirectLocation();
+
+                    context.goNamedAuth(LoginWidget.routeName, context.mounted);
                   },
                 ),
               ),
@@ -155,29 +190,38 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '¿Listo para un brillo?',
-                            style: FlutterFlowTheme.of(context)
-                                .titleLarge
-                                .override(
-                                  font: GoogleFonts.interTight(
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed(CitasUserWidget.routeName);
+                            },
+                            child: Text(
+                              'Revisa tu proxima cita -->',
+                              style: FlutterFlowTheme.of(context)
+                                  .titleLarge
+                                  .override(
+                                    font: GoogleFonts.interTight(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .titleLarge
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  fontSize: 18.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleLarge
-                                      .fontStyle,
-                                ),
+                            ),
                           ),
                           Text(
-                            'Reserva tu próximo servicio hoy y mantén tu vehículo en impecables condiciones.',
+                            'O reserva tu próximo servicio hoy y mantén tu vehículo en impecables condiciones.',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -202,41 +246,152 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                   lineHeight: 1.5,
                                 ),
                           ),
-                          FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: 'Reservar Ahora →',
-                            options: FFButtonOptions(
-                              height: 44.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 20.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: Color(0xFF66DF75),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    font: GoogleFonts.interTight(
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
-                                    ),
-                                    color: Color(0xFF002106),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                              elevation: 0.0,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
                         ].divide(SizedBox(height: 12.0)),
                       ),
                     ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Noticias y Tips Automotrices',
+                        style: FlutterFlowTheme.of(context).titleLarge.override(
+                              font: GoogleFonts.interTight(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleLarge
+                                    .fontStyle,
+                              ),
+                              color: Color(0xFF001E40),
+                              fontSize: 18.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .titleLarge
+                                  .fontStyle,
+                            ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          height: 200.0,
+                          decoration: BoxDecoration(),
+                          child: FutureBuilder<ApiCallResponse>(
+                            future: ObtenerNoticiasAutosCall.call(),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: SpinKitCubeGrid(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      size: 50.0,
+                                    ),
+                                  ),
+                                );
+                              }
+                              final listViewObtenerNoticiasAutosResponse =
+                                  snapshot.data!;
+
+                              return Builder(
+                                builder: (context) {
+                                  final noticiasFeed = getJsonField(
+                                    listViewObtenerNoticiasAutosResponse
+                                        .jsonBody,
+                                    r'''$.articles''',
+                                  ).toList();
+
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: noticiasFeed.length,
+                                    itemBuilder: (context, noticiasFeedIndex) {
+                                      final noticiasFeedItem =
+                                          noticiasFeed[noticiasFeedIndex];
+                                      return Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 12.0, 0.0),
+                                        child: Container(
+                                          width: 250.0,
+                                          height: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                                child: Image.network(
+                                                  getJsonField(
+                                                    noticiasFeedItem,
+                                                    r'''$.image''',
+                                                  ).toString(),
+                                                  width: double.infinity,
+                                                  height: 120.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  getJsonField(
+                                                    noticiasFeedItem,
+                                                    r'''$.title''',
+                                                  ).toString(),
+                                                  maxLines: 2,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -259,36 +414,6 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                   .titleLarge
                                   .fontStyle,
                             ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Filtros',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                                  color: Color(0xFF00658D),
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                          ),
-                          Icon(
-                            Icons.tune_rounded,
-                            color: Color(0xFF00658D),
-                            size: 18.0,
-                          ),
-                        ].divide(SizedBox(width: 4.0)),
                       ),
                     ],
                   ),
@@ -566,15 +691,57 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                         ),
                                       ].divide(SizedBox(width: 8.0)),
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Seleccionar',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                font: GoogleFonts.inter(
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed(
+                                          ReservarCitaWidget.routeName,
+                                          queryParameters: {
+                                            'nombreServicio': serializeParam(
+                                              'Lavado Básico',
+                                              ParamType.String,
+                                            ),
+                                            'precioBase': serializeParam(
+                                              15.0,
+                                              ParamType.double,
+                                            ),
+                                            'imagenServicio': serializeParam(
+                                              'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=500](https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=500',
+                                              ParamType.String,
+                                            ),
+                                            'descripcion': serializeParam(
+                                              'Lavado a mano exterior, limpieza de rines, abrillantado de llantas y aspirado interior. Perfecto',
+                                              ParamType.String,
+                                            ),
+                                            'tiempo': serializeParam(
+                                              '30min',
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Seleccionar',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                                  color: Color(0xFF00658D),
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
@@ -582,22 +749,14 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                                color: Color(0xFF00658D),
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
-                                        ),
-                                        Icon(
-                                          Icons.chevron_right_rounded,
-                                          color: Color(0xFF00658D),
-                                          size: 16.0,
-                                        ),
-                                      ].divide(SizedBox(width: 4.0)),
+                                          ),
+                                          Icon(
+                                            Icons.chevron_right_rounded,
+                                            color: Color(0xFF00658D),
+                                            size: 16.0,
+                                          ),
+                                        ].divide(SizedBox(width: 4.0)),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -821,7 +980,7 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                   ],
                                 ),
                                 Text(
-                                  'Lavado básico más aplicación de cera premium, detallado interior profundo, acondicionamiento de',
+                                  'Lavado básico más aplicación de cera premium, detallado interior profundo, acondicionamiento',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -933,15 +1092,57 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                         ),
                                       ].divide(SizedBox(width: 8.0)),
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Seleccionar',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                font: GoogleFonts.inter(
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed(
+                                          ReservarCitaWidget.routeName,
+                                          queryParameters: {
+                                            'nombreServicio': serializeParam(
+                                              'Lavado completo',
+                                              ParamType.String,
+                                            ),
+                                            'precioBase': serializeParam(
+                                              25.0,
+                                              ParamType.double,
+                                            ),
+                                            'imagenServicio': serializeParam(
+                                              'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=500](https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=500',
+                                              ParamType.String,
+                                            ),
+                                            'descripcion': serializeParam(
+                                              'Lavado básico más aplicación de cera premium, detallado interior profundo, acondicionamiento',
+                                              ParamType.String,
+                                            ),
+                                            'tiempo': serializeParam(
+                                              '60min',
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Seleccionar',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                                  color: Color(0xFF00658D),
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
@@ -949,22 +1150,14 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                                color: Color(0xFF00658D),
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
-                                        ),
-                                        Icon(
-                                          Icons.chevron_right_rounded,
-                                          color: Color(0xFF00658D),
-                                          size: 16.0,
-                                        ),
-                                      ].divide(SizedBox(width: 4.0)),
+                                          ),
+                                          Icon(
+                                            Icons.chevron_right_rounded,
+                                            color: Color(0xFF00658D),
+                                            size: 16.0,
+                                          ),
+                                        ].divide(SizedBox(width: 4.0)),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1223,15 +1416,57 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                         ),
                                       ].divide(SizedBox(width: 8.0)),
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Seleccionar',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                font: GoogleFonts.inter(
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed(
+                                          ReservarCitaWidget.routeName,
+                                          queryParameters: {
+                                            'nombreServicio': serializeParam(
+                                              'Lavado motor',
+                                              ParamType.String,
+                                            ),
+                                            'precioBase': serializeParam(
+                                              40.0,
+                                              ParamType.double,
+                                            ),
+                                            'imagenServicio': serializeParam(
+                                              'https://content.app-sources.com/s/7922247355803329/uploads/Images/detail-of-the-car-engine-2023-11-27-04-51-24-utc-7357366.jpg?format=webp',
+                                              ParamType.String,
+                                            ),
+                                            'descripcion': serializeParam(
+                                              'Desengrasado y limpieza a vapor segura y profunda del compartimento del motor para...',
+                                              ParamType.String,
+                                            ),
+                                            'tiempo': serializeParam(
+                                              '45min',
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Seleccionar',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                                  color: Color(0xFF00658D),
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
@@ -1239,22 +1474,14 @@ class _InicioClienteWidgetState extends State<InicioClienteWidget> {
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                                color: Color(0xFF00658D),
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
-                                        ),
-                                        Icon(
-                                          Icons.chevron_right_rounded,
-                                          color: Color(0xFF00658D),
-                                          size: 16.0,
-                                        ),
-                                      ].divide(SizedBox(width: 4.0)),
+                                          ),
+                                          Icon(
+                                            Icons.chevron_right_rounded,
+                                            color: Color(0xFF00658D),
+                                            size: 16.0,
+                                          ),
+                                        ].divide(SizedBox(width: 4.0)),
+                                      ),
                                     ),
                                   ],
                                 ),

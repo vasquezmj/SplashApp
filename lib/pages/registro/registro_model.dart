@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'registro_widget.dart' show RegistroWidget;
 import 'package:flutter/material.dart';
 
@@ -9,25 +10,32 @@ class RegistroModel extends FlutterFlowModel<RegistroWidget> {
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
+  // State field(s) for correo widget.
+  FocusNode? correoFocusNode;
+  TextEditingController? correoTextController;
+  String? Function(BuildContext, String?)? correoTextControllerValidator;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode3;
-  TextEditingController? textController3;
-  String? Function(BuildContext, String?)? textController3Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode4;
-  TextEditingController? textController4;
+  // State field(s) for password widget.
+  FocusNode? passwordFocusNode;
+  TextEditingController? passwordTextController;
   late bool passwordVisibility;
-  String? Function(BuildContext, String?)? textController4Validator;
+  String? Function(BuildContext, String?)? passwordTextControllerValidator;
+  // State field(s) for repetirpassword widget.
+  FocusNode? repetirpasswordFocusNode;
+  TextEditingController? repetirpasswordTextController;
+  late bool repetirpasswordVisibility;
+  String? Function(BuildContext, String?)?
+      repetirpasswordTextControllerValidator;
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
 
   @override
   void initState(BuildContext context) {
     passwordVisibility = false;
+    repetirpasswordVisibility = false;
   }
 
   @override
@@ -35,13 +43,16 @@ class RegistroModel extends FlutterFlowModel<RegistroWidget> {
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
 
+    correoFocusNode?.dispose();
+    correoTextController?.dispose();
+
     textFieldFocusNode2?.dispose();
     textController2?.dispose();
 
-    textFieldFocusNode3?.dispose();
-    textController3?.dispose();
+    passwordFocusNode?.dispose();
+    passwordTextController?.dispose();
 
-    textFieldFocusNode4?.dispose();
-    textController4?.dispose();
+    repetirpasswordFocusNode?.dispose();
+    repetirpasswordTextController?.dispose();
   }
 }

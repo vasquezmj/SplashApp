@@ -530,7 +530,9 @@ class _FlotaWidgetState extends State<FlotaWidget> {
                                                           .labelSmall
                                                           .fontStyle,
                                                 ),
-                                                color: Color(0xFF003D11),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .info,
                                                 fontSize: 12.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -1148,43 +1150,6 @@ class _FlotaWidgetState extends State<FlotaWidget> {
                                             ],
                                           ),
                                         ].divide(SizedBox(width: 10.0)),
-                                      ),
-                                    ),
-                                    FFButtonWidget(
-                                      onPressed: () {
-                                        print('Button pressed ...');
-                                      },
-                                      text: 'Reponer',
-                                      options: FFButtonOptions(
-                                        height: 32.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 0.0, 12.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: Color(0xFF2DBCFE),
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              font: GoogleFonts.interTight(
-                                                fontWeight: FontWeight.w500,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .fontStyle,
-                                              ),
-                                              color: Color(0xFF004866),
-                                              fontSize: 12.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontStyle,
-                                            ),
-                                        elevation: 0.0,
-                                        borderRadius:
-                                            BorderRadius.circular(6.0),
                                       ),
                                     ),
                                   ],

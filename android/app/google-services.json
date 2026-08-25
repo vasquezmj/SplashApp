@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "106105838624",
+    "project_id": "splash-app-dtxol3",
+    "storage_bucket": "splash-app-dtxol3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:106105838624:android:62f1930df941ccedceb045",
+        "android_client_info": {
+          "package_name": "com.mycompany.splashapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrXeCEYuD59lRuO-bltkHsvD-M4lIX2a8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

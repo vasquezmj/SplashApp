@@ -1,6 +1,8 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'registro_model.dart';
@@ -29,14 +31,17 @@ class _RegistroWidgetState extends State<RegistroWidget> {
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
 
+    _model.correoTextController ??= TextEditingController();
+    _model.correoFocusNode ??= FocusNode();
+
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
+    _model.passwordTextController ??= TextEditingController();
+    _model.passwordFocusNode ??= FocusNode();
 
-    _model.textController4 ??= TextEditingController();
-    _model.textFieldFocusNode4 ??= FocusNode();
+    _model.repetirpasswordTextController ??= TextEditingController();
+    _model.repetirpasswordFocusNode ??= FocusNode();
   }
 
   @override
@@ -339,8 +344,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                 Container(
                                   width: double.infinity,
                                   child: TextFormField(
-                                    controller: _model.textController2,
-                                    focusNode: _model.textFieldFocusNode2,
+                                    controller: _model.correoTextController,
+                                    focusNode: _model.correoFocusNode,
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -443,7 +448,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                         ),
                                     keyboardType: TextInputType.emailAddress,
                                     cursorColor: Color(0xFF36B24E),
-                                    validator: _model.textController2Validator
+                                    validator: _model
+                                        .correoTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -476,8 +482,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                 Container(
                                   width: double.infinity,
                                   child: TextFormField(
-                                    controller: _model.textController3,
-                                    focusNode: _model.textFieldFocusNode3,
+                                    controller: _model.textController2,
+                                    focusNode: _model.textFieldFocusNode2,
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -580,7 +586,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                         ),
                                     keyboardType: TextInputType.phone,
                                     cursorColor: Color(0xFF36B24E),
-                                    validator: _model.textController3Validator
+                                    validator: _model.textController2Validator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -613,8 +619,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                 Container(
                                   width: double.infinity,
                                   child: TextFormField(
-                                    controller: _model.textController4,
-                                    focusNode: _model.textFieldFocusNode4,
+                                    controller: _model.passwordTextController,
+                                    focusNode: _model.passwordFocusNode,
                                     autofocus: false,
                                     obscureText: !_model.passwordVisibility,
                                     decoration: InputDecoration(
@@ -732,7 +738,164 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                                   .fontStyle,
                                         ),
                                     cursorColor: Color(0xFF36B24E),
-                                    validator: _model.textController4Validator
+                                    validator: _model
+                                        .passwordTextControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ),
+                              ].divide(SizedBox(height: 6.0)),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Repetir Contraseña',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Color(0xFF43474F),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller:
+                                        _model.repetirpasswordTextController,
+                                    focusNode: _model.repetirpasswordFocusNode,
+                                    autofocus: false,
+                                    obscureText:
+                                        !_model.repetirpasswordVisibility,
+                                    decoration: InputDecoration(
+                                      isDense: false,
+                                      hintText: '••••••••',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: Color(0xFFC3C6D1),
+                                            fontSize: 14.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFE0E0E0),
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFF36B24E),
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      filled: true,
+                                      fillColor: Color(0xFFF8F9FA),
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 16.0, 16.0, 16.0),
+                                      prefixIcon: Icon(
+                                        Icons.lock_outline,
+                                        color: Color(0xFFC3C6D1),
+                                        size: 20.0,
+                                      ),
+                                      suffixIcon: InkWell(
+                                        onTap: () async {
+                                          safeSetState(() => _model
+                                                  .repetirpasswordVisibility =
+                                              !_model
+                                                  .repetirpasswordVisibility);
+                                        },
+                                        focusNode:
+                                            FocusNode(skipTraversal: true),
+                                        child: Icon(
+                                          _model.repetirpasswordVisibility
+                                              ? Icons.visibility_outlined
+                                              : Icons.visibility_off_outlined,
+                                          color: Color(0xFFC3C6D1),
+                                          size: 20.0,
+                                        ),
+                                      ),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF191C1D),
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                    cursorColor: Color(0xFF36B24E),
+                                    validator: _model
+                                        .repetirpasswordTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -794,8 +957,32 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                               ].divide(SizedBox(width: 12.0)),
                             ),
                             FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                GoRouter.of(context).prepareAuthEvent();
+                                if (_model.passwordTextController.text !=
+                                    _model.repetirpasswordTextController.text) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Passwords don\'t match!',
+                                      ),
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                final user =
+                                    await authManager.createAccountWithEmail(
+                                  context,
+                                  _model.correoTextController.text,
+                                  _model.passwordTextController.text,
+                                );
+                                if (user == null) {
+                                  return;
+                                }
+
+                                context.goNamedAuth(
+                                    AdmPanelWidget.routeName, context.mounted);
                               },
                               text: 'Crear Cuenta',
                               options: FFButtonOptions(
@@ -837,23 +1024,33 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      child: Text(
-                        '¿Ya tienes una cuenta? Inicia sesión',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              color: Color(0xFF00658D),
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.normal,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed(LoginWidget.routeName);
+                        },
+                        child: Text(
+                          '¿Ya tienes una cuenta? Inicia sesión',
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFF00658D),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                        ),
                       ),
                     ),
                   ),

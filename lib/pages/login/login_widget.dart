@@ -1,6 +1,8 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login_model.dart';
@@ -27,10 +29,10 @@ class _LoginWidgetState extends State<LoginWidget> {
     super.initState();
     _model = createModel(context, () => LoginModel());
 
-    _model.textController1 ??= TextEditingController();
+    _model.emailTextController ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
+    _model.passwordTextController ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
   }
 
@@ -190,7 +192,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 Container(
                                   width: double.infinity,
                                   child: TextFormField(
-                                    controller: _model.textController1,
+                                    controller: _model.emailTextController,
                                     focusNode: _model.textFieldFocusNode1,
                                     autofocus: false,
                                     obscureText: false,
@@ -295,7 +297,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         ),
                                     keyboardType: TextInputType.emailAddress,
                                     cursorColor: Color(0xFF00658D),
-                                    validator: _model.textController1Validator
+                                    validator: _model
+                                        .emailTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -359,7 +362,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 Container(
                                   width: double.infinity,
                                   child: TextFormField(
-                                    controller: _model.textController2,
+                                    controller: _model.passwordTextController,
                                     focusNode: _model.textFieldFocusNode2,
                                     autofocus: false,
                                     obscureText: !_model.passwordVisibility,
@@ -478,15 +481,37 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   .fontStyle,
                                         ),
                                     cursorColor: Color(0xFF00658D),
-                                    validator: _model.textController2Validator
+                                    validator: _model
+                                        .passwordTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
                               ].divide(SizedBox(height: 8.0)),
                             ),
                             FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                GoRouter.of(context).prepareAuthEvent();
+
+                                final user = await authManager.signInWithEmail(
+                                  context,
+                                  _model.emailTextController.text,
+                                  _model.passwordTextController.text,
+                                );
+                                if (user == null) {
+                                  return;
+                                }
+
+                                if (valueOrDefault(
+                                        currentUserDocument?.rol, '') ==
+                                    'Admin') {
+                                  context.pushNamedAuth(
+                                      AdmPanelWidget.routeName,
+                                      context.mounted);
+                                } else {
+                                  context.pushNamedAuth(
+                                      InicioClienteWidget.routeName,
+                                      context.mounted);
+                                }
                               },
                               text: 'Iniciar Sesión',
                               options: FFButtonOptions(
@@ -574,96 +599,60 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         width: 1.0,
                                       ),
                                     ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.g_mobiledata_rounded,
-                                            color: Color(0xFF4285F4),
-                                            size: 20.0,
-                                          ),
-                                          Text(
-                                            'Google',
-                                            style: FlutterFlowTheme.of(context)
-                                                .titleSmall
-                                                .override(
-                                                  font: GoogleFonts.interTight(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleSmall
-                                                            .fontStyle,
-                                                  ),
-                                                  color: Color(0xFF191C1D),
-                                                  fontSize: 14.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ].divide(SizedBox(width: 10.0)),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    height: 52.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      border: Border.all(
-                                        color: Color(0xFFE0E0E0),
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.apple,
-                                            color: Color(0xFF191C1D),
-                                            size: 20.0,
-                                          ),
-                                          Text(
-                                            'Apple',
-                                            style: FlutterFlowTheme.of(context)
-                                                .titleSmall
-                                                .override(
-                                                  font: GoogleFonts.interTight(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleSmall
-                                                            .fontStyle,
-                                                  ),
-                                                  color: Color(0xFF191C1D),
-                                                  fontSize: 14.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ].divide(SizedBox(width: 10.0)),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        GoRouter.of(context).prepareAuthEvent();
+                                        final user = await authManager
+                                            .signInWithGoogle(context);
+                                        if (user == null) {
+                                          return;
+                                        }
+                                        if (valueOrDefault(
+                                                currentUserDocument?.rol, '') ==
+                                            'Admin') {
+                                          context.pushNamedAuth(
+                                              AdmPanelWidget.routeName,
+                                              context.mounted);
+                                        } else {
+                                          context.pushNamedAuth(
+                                              InicioClienteWidget.routeName,
+                                              context.mounted);
+                                        }
+                                      },
+                                      text: 'Google',
+                                      options: FFButtonOptions(
+                                        width: double.infinity,
+                                        height: 52.0,
+                                        padding: EdgeInsets.all(8.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              font: GoogleFonts.interTight(
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                        elevation: 0.0,
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
                                       ),
                                     ),
                                   ),
@@ -678,43 +667,52 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                     ),
                   ),
-                  RichText(
-                    textScaler: MediaQuery.of(context).textScaler,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '¿No tienes una cuenta? ',
-                          style: TextStyle(
-                            color: Color(0xFF43474F),
-                            fontWeight: FontWeight.normal,
-                            fontSize: 14.0,
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed(RegistroWidget.routeName);
+                    },
+                    child: RichText(
+                      textScaler: MediaQuery.of(context).textScaler,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '¿No tienes una cuenta? ',
+                            style: TextStyle(
+                              color: Color(0xFF43474F),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14.0,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: 'Regístrate aquí',
-                          style: TextStyle(
-                            color: Color(0xFF00658D),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.0,
-                            decoration: TextDecoration.underline,
-                          ),
-                        )
-                      ],
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.inter(
+                          TextSpan(
+                            text: 'Regístrate aquí',
+                            style: TextStyle(
+                              color: Color(0xFF00658D),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14.0,
+                              decoration: TextDecoration.underline,
+                            ),
+                          )
+                        ],
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.normal,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
+                              color: Color(0xFF43474F),
+                              fontSize: 14.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
                               fontStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                             ),
-                            color: Color(0xFF43474F),
-                            fontSize: 14.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.normal,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
+                      ),
                     ),
                   ),
                 ]
